@@ -59,7 +59,7 @@ app.post("/api/view/:token", async (req, res) => {
   const token = req.params.token;
   const key = `secret:${token}`;
   const requestIp =
-    req.headers["'x-user-ip'"]?.split(",")[0] || req.socket.remoteAddress;
+    req.headers["x-user-ip"] || req.socket.remoteAddress;
   console.log("0" + requestIp); //for debugging
   console.log("1" +  req.ip); //for debugging
 

@@ -60,6 +60,8 @@ app.post("/api/view/:token", async (req, res) => {
   const key = `secret:${token}`;
   const requestIp =
     req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
+  console.log("0" + requestIp); //for debugging
+  console.log("1" +  req.ip); //for debugging
 
   const providedPassword = req.body?.password || null;
 

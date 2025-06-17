@@ -4,13 +4,15 @@ import { createClient } from "redis";
 import { v4 as uuidv4 } from "uuid";
 import dotenv from "dotenv";
 import { apiAuth } from "./auth.js";
-
+import cors from "cors";
 dotenv.config();
 const app = express();
 const redisClient = createClient({
-  url: process.env.REDIS_URL || "redis://localhost:6379"
+  url: process.env.REDIS_URL || "redis://localhost:6379",
 });
+app.set("trust proxy", true);
 
+app.use(cors());
 redisClient.on("error", (err) => console.error("Redis Error:", err));
 await redisClient.connect();
 app.use(express.json());
@@ -58,6 +60,7 @@ app.post("/api/view/:token", async (req, res) => {
   const key = `secret:${token}`;
   const requestIp =
     req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
+
   const providedPassword = req.body?.password || null;
 
   try {

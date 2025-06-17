@@ -58,10 +58,7 @@ app.post("/api/store", async (req, res) => {
 app.post("/api/view/:token", async (req, res) => {
   const token = req.params.token;
   const key = `secret:${token}`;
-  const requestIp =
-    req.headers["x-user-ip"] || req.socket.remoteAddress;
-  console.log("0" + requestIp); //for debugging
-  console.log("1" +  req.ip); //for debugging
+  const requestIp = req.headers["x-user-ip"] || req.socket.remoteAddress;
 
   const providedPassword = req.body?.password || null;
 

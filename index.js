@@ -20,6 +20,9 @@ app.use(express.json());
 const API_KEY = process.env.API_KEY; // Api Auth Key
 app.use("/api/store", apiAuth(API_KEY));
 app.use("/api/view", apiAuth(API_KEY));
+app.get("/ping", (req, res) => {
+  res.send("Ping");
+});
 
 app.post("/api/store", async (req, res) => {
   const { encryptedSecret, ttl, allowedIp, password } = req.body;
